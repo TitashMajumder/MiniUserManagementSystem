@@ -1,7 +1,9 @@
 import os
+import sys
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load .env file
 load_dotenv()
@@ -47,14 +49,10 @@ AUTH_USER_MODEL = 'users.User'
 
 # Database Configuration
 DATABASES = {
-     'default': {
-          'ENGINE': 'djongo',
-          'NAME': 'user_management_db',
-          'ENFORCE_SCHEMA': False,
-          'CLIENT': {
-               'host': os.getenv('DATABASE_URL'), # Your MongoDB Atlas Connection String
-          }
-     }
+     'default': dj_database_url.config(
+          default=f'sqlite:///{BASE_DIR}/db.sqlite3',
+          conn_max_age=600
+     )
 }
 
 # REST Framework Config [cite: 45, 80]
@@ -69,6 +67,22 @@ REST_FRAMEWORK = {
      'PAGE_SIZE': 10, # Requirement: 10 users per page [cite: 80]
      }
 
+TEMPLATES = [
+     {
+          'BACKEND': 'django.template.backends.django.DjangoTemplates',
+          'DIRS': [BASE_DIR / 'templates'], # Look for templates in a top-level folder
+          'APP_DIRS': True,                 # Look for templates inside app folders
+          'OPTIONS': {
+               'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+               ],
+          },
+     },
+]
+
 # JWT Config [cite: 26, 59]
 SIMPLE_JWT = {
      'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -78,3 +92,14 @@ SIMPLE_JWT = {
 
 # CORS Configuration [cite: 130]
 CORS_ALLOW_ALL_ORIGINS = True # Change to specific domains for production
+
+if 'test' in sys.argv:
+     DATABASES = {
+          'default': {
+               'ENGINE': 'django.db.backends.sqlite3',
+               'NAME': BASE_DIR / 'test_db.sqlite3',
+          }
+     }
+
+# settings.py
+ROOT_URLCONF = 'core.url'

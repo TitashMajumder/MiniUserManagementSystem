@@ -1,8 +1,7 @@
-django
+Django>=4.2
 djangorestframework
 djangorestframework-simplejwt
 django-cors-headers
-django-environ
 psycopg2-binary
+python-dotenv
 gunicorn
-dotenv

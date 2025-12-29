@@ -14,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
           return value
 
      def create(self, validated_data):
+          validated_data['username'] = validated_data.get('email')
           user = User.objects.create_user(**validated_data) # Hashes automatically
           return user
 
