@@ -1,3 +1,4 @@
+// frontend/src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
@@ -5,11 +6,13 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
 
 function App() {
      return (
           <AuthProvider>
                <Router>
+                    <Navbar />
                     <Routes>
                          {/* Public Routes */}
                          <Route path="/login" element={<Login />} />

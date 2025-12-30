@@ -1,3 +1,4 @@
+# backend/core/settings.py
 import os
 import sys
 from pathlib import Path
@@ -102,4 +103,7 @@ if 'test' in sys.argv:
      }
 
 # settings.py
-ROOT_URLCONF = 'core.url'
+ROOT_URLCONF = 'core.urls'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+WSGI_APPLICATION = 'core.wsgi.application'

@@ -1,3 +1,4 @@
+// frontend/src/pages/Login.jsx
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/axios';
@@ -12,11 +13,18 @@ const Login = () => {
      const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-               const res = await api.post('/auth/login/', { email, password });
+               // Change 'email' to 'username' so SimpleJWT recognizes it
+               const res = await api.post('/auth/login/', { 
+                    email: email,
+                    password: password 
+               });
+               
                // Save tokens and update context
                login(res.data.access, res.data.refresh);
                navigate('/profile');
           } catch (err) {
+               // Detailed error logging to help you see the exact failure in the console
+               console.error("Login Error Details:", err.response?.data);
                alert("Invalid credentials or account inactive");
           }
      };

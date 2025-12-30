@@ -1,3 +1,4 @@
+# backend/users/permissions.py
 from rest_framework import permissions
 
 class IsAdminRole(permissions.BasePermission):

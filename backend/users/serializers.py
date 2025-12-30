@@ -1,3 +1,5 @@
+# backend/users/serializers.py
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from .models import User
 import re
@@ -23,4 +25,21 @@ class UserSerializer(serializers.ModelSerializer):
                raise serializers.ValidationError("Password must be at least 8 characters.")
           if not any(char.isdigit() for char in value):
                raise serializers.ValidationError("Password must contain at least one number.")
+          return value
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+     username_field = 'email' # Tell JWT to use email as the identifier
+
+     def validate(self, attrs):
+          # This bypasses the 'required field' check for 'username'
+          data = super().validate(attrs)
+          return data
+
+class ChangePasswordSerializer(serializers.Serializer):
+     old_password = serializers.CharField()
+     new_password = serializers.CharField()
+
+     def validate_new_password(self, value):
+          if len(value) < 8:
+               raise serializers.ValidationError("Password too short")
           return value

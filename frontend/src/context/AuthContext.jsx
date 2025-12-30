@@ -1,5 +1,6 @@
+// frontend/src/context/AuthContext.jsx
 import { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import api from '../api/axios';
 
 export const AuthContext = createContext();
 
@@ -9,22 +10,25 @@ export const AuthProvider = ({ children }) => {
 
      useEffect(() => {
           const token = localStorage.getItem('access_token');
-          if (token) {
-               try {
-                    const decoded = jwtDecode(token);
-                    setUser(decoded); // contains user_id, email, and role
-               } catch (e) {
-                    localStorage.clear();
-               }
+          if (!token) {
+               setLoading(false);
+               return;
           }
-          setLoading(false);
+
+          api.get('/users/me/')
+               .then(res => setUser(res.data))
+               .catch(() => {
+                    localStorage.clear();
+                    setUser(null);
+               })
+               .finally(() => setLoading(false));
      }, []);
 
-     const login = (access, refresh) => {
+     const login = async (access, refresh) => {
           localStorage.setItem('access_token', access);
           localStorage.setItem('refresh_token', refresh);
-          const decoded = jwtDecode(access);
-          setUser(decoded);
+          const res = await api.get('/users/me/');
+          setUser(res.data);
      };
 
      const logout = () => {
