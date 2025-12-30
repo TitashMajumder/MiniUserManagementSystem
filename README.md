@@ -159,9 +159,9 @@ python manage.py test
 
 🌐 Live Deployment
 
-Frontend: https://your-frontend-url.vercel.app
+Frontend: https://mini-user-management-system-jet.vercel.app
 
-Backend API: https://your-backend-url.onrender.com
+Backend API: https://miniusermanagementsystem-b08u.onrender.com
 
 Database: PostgreSQL (Neon)
 
