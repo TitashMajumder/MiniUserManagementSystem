@@ -95,6 +95,7 @@ SIMPLE_JWT = {
 
 # CORS Configuration [cite: 130]
 CORS_ALLOW_ALL_ORIGINS = True # Change to specific domains for production
+CORS_ALLOW_CREDENTIALS = True
 
 if 'test' in sys.argv:
      DATABASES = {
@@ -109,3 +110,7 @@ ROOT_URLCONF = 'core.urls'
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 WSGI_APPLICATION = 'core.wsgi.application'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mini-user-management-system-jet.vercel.app"
+]
