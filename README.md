@@ -123,9 +123,9 @@ PATCH	/api/admin/users/{id}/toggle/	Activate/deactivate user
 🔐 Environment Variables
 Backend (.env)
 SECRET_KEY=your_secret_key
-DEBUG=True
+DEBUG=False
 DATABASE_URL=postgresql://user:password@host:port/dbname
-ALLOWED_HOSTS=localhost,127.0.0.1
+ALLOWED_HOSTS=*
 
 Frontend (.env)
 VITE_API_URL=https://your-backend-url/api
@@ -203,7 +203,7 @@ Titash Majumder
 Backend Developer Intern Candidate
 📧 Email: majumdertitash@gmail.com
 
-🔗 GitHub: https://github.com/your-username
+🔗 GitHub: https://github.com/TitashMajumder
 
 ✅ Submission Checklist
 
