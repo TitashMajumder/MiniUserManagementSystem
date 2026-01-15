@@ -106,6 +106,7 @@ Environment variables for secrets
 Proper HTTP status codes
 
 ### 🧩 API Endpoints
+```
 Authentication
 Method	Endpoint	Description
 POST	/api/auth/signup/	User signup
@@ -120,16 +121,21 @@ Admin
 Method	Endpoint	Description
 GET	/api/admin/users/	List all users (paginated)
 PATCH	/api/admin/users/{id}/toggle/	Activate/deactivate user
+```
 ### 🔐 Environment Variables
 Backend (.env)
+
 SECRET_KEY=your_secret_key
+
 DEBUG=False
+
 DATABASE_URL=postgresql://user:password@host:port/dbname
+
 ALLOWED_HOSTS=*
 
 Frontend (.env)
-VITE_API_URL=https://your-backend-url/api
 
+VITE_API_URL=https://your-backend-url/api
 
 ⚠️ .env files are excluded from version control.
 
